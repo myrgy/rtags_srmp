@@ -11,10 +11,9 @@ URL:     https://github.com/Andersbakken/rtags
 Group:   Programming
 Source0: https://andersbakken.github.io/rtags-releases/rtags-%{version}.tar.bz2
 
-Buildroot: %{_tmppath}/%{name}-%{version}-root
-
 # BuildRequires:
-BuildRequires: cmake llvm llvm-devel clang-devel clang-libs gcc-c++
+BuildRequires: cmake >= 3.0.0
+BuildRequires: llvm llvm-devel clang-devel clang-libs gcc-c++
 BuildRequires: zlib zlib-devel
 BuildRequires: openssl-devel openssl
 Requires:      clang-libs zlib openssl
@@ -25,17 +24,19 @@ RTags is a client/server application that indexes C/C++ code and keeps a persist
 While existing taggers like gnu global, cscope, etags, ctags etc do a decent job for C they often fall a little bit short for C++. With its incredible lexical complexity, parsing C++ is an incredibly hard task and we make no bones about the fact that the only reason we are able to improve on the current tools is because of clang (http://clang.llvm.org/). RTags is named RTags in recognition of Roberto Raggi on whose C++ parser we intended to base this project but he assured us clang was the way to go. The name stuck though.
 
 %prep
-%autosetup
-cmake .
+%setup
 
 %clean
 %__make clean
 
 %build
-%__make %{?_smp_mflags}
+mkdir build; pushd build
+%cmake ..
+popd
+%__make -C build VERBOSE=1 %{?_smp_mflags}
 
 %install
-%__make install DESTDIR=$RPM_BUILD_ROOT
+%__make -C build DESTDIR="%{buildroot}" INSTALL="install -p" install
 
 %files
 %defattr(-,root,root)
