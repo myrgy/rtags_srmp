@@ -36,7 +36,7 @@ popd
 %__make -C build VERBOSE=1 %{?_smp_mflags}
 
 %install
-%__make -C build DESTDIR="%{buildroot}" INSTALL="install -p" install
+make -C build DESTDIR="%{buildroot}" INSTALL="install -p" install
 
 %files
 %defattr(-,root,root)
