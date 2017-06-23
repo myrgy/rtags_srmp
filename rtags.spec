@@ -25,7 +25,7 @@ RTags is a client/server application that indexes C/C++ code and keeps a persist
 While existing taggers like gnu global, cscope, etags, ctags etc do a decent job for C they often fall a little bit short for C++. With its incredible lexical complexity, parsing C++ is an incredibly hard task and we make no bones about the fact that the only reason we are able to improve on the current tools is because of clang (http://clang.llvm.org/). RTags is named RTags in recognition of Roberto Raggi on whose C++ parser we intended to base this project but he assured us clang was the way to go. The name stuck though.
 
 %prep
-%setup -q
+%setup
 cmake .
 
 %clean
