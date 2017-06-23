@@ -16,7 +16,7 @@ Buildroot: %{_tmppath}/%{name}-%{version}-root
 # BuildRequires:
 BuildRequires: cmake llvm llvm-devel clang-devel clang-libs gcc-c++
 BuildRequires: zlib zlib-devel
-BuildRequires: openssl-devel openssl-lib
+BuildRequires: openssl-devel openssl
 Requires:      clang-libs zlib openssl
 
 %description
