@@ -30,6 +30,8 @@ While existing taggers like gnu global, cscope, etags, ctags etc do a decent job
 %__make clean
 
 %build
+pwd
+ls
 mkdir build; pushd build
 %cmake ..
 popd
