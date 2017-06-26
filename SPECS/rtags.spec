@@ -16,7 +16,13 @@ BuildRequires: cmake >= 3.0.0
 BuildRequires: llvm llvm-devel clang-devel clang-libs gcc-c++
 BuildRequires: zlib zlib-devel
 BuildRequires: openssl-devel openssl
+BuildRequires: emacs bash bash-completion help2man
 Requires:      clang-libs zlib openssl
+
+BuildRequires:	pkgconfig(openssl)
+BuildRequires:	pkgconfig(zlib)
+BuildRequires:	pkgconfig(bash-completion)
+Requires:	emacs-filesystem >= %{_emacs_version}
 
 %description
 RTags is a client/server application that indexes C/C++ code and keeps a persistent file-based database of references, declarations, definitions, symbolnames etc. There’s also limited support for ObjC/ObjC++. It allows you to find symbols by name (including nested class and namespace scope). Most importantly we give you proper follow-symbol and find-references support. We also have neat little things like rename-symbol, integration with clang’s “fixits” (http://clang.llvm.org/diagnostics.html). We also integrate with flymake using clang’s vastly superior errors and warnings. Since RTags constantly will reindex “dirty” files you get live updates of compiler errors and warnings. Since we already know how to compile your sources we have a way to quickly bring up the preprocessed output of the current source file in a buffer.
@@ -27,7 +33,7 @@ While existing taggers like gnu global, cscope, etags, ctags etc do a decent job
 %setup
 
 %clean
-%__make clean
+%__make -C build clean
 
 %build
 pwd
@@ -36,30 +42,31 @@ mkdir build; pushd build
 %cmake ..
 popd
 %__make -C build VERBOSE=1 %{?_smp_mflags}
+%__make -C build VERBOSE=1 %{?_smp_mflags} man
 
 %install
-make -C build DESTDIR="%{buildroot}" INSTALL="install -p" install
+%__make -C build VERBOSE=1 DESTDIR="%{buildroot}" install
 
 %files
 %defattr(-,root,root)
-/usr/local/share/bash-completion/completions/rtags
-/usr/local/share/bash-completion/completions/rc
-/usr/local/share/bash-completion/completions/rdm
-/usr/local/bin/rdm
-/usr/local/bin/rc
-/usr/local/bin/rp
-/usr/local/bin/gcc-rtags-wrapper.sh
-/usr/local/share/man/man7/rc.7
-/usr/local/share/man/man7/rdm.7
-/usr/local/share/emacs/site-lisp/rtags/rtags.el
-/usr/local/share/emacs/site-lisp/rtags/rtags.elc
-/usr/local/share/emacs/site-lisp/rtags/ac-rtags.el
-/usr/local/share/emacs/site-lisp/rtags/ac-rtags.elc
-/usr/local/share/emacs/site-lisp/rtags/helm-rtags.el
-/usr/local/share/emacs/site-lisp/rtags/helm-rtags.elc
-/usr/local/share/emacs/site-lisp/rtags/ivy-rtags.el
-/usr/local/share/emacs/site-lisp/rtags/ivy-rtags.elc
-/usr/local/share/emacs/site-lisp/rtags/company-rtags.el
-/usr/local/share/emacs/site-lisp/rtags/company-rtags.elc
-/usr/local/share/emacs/site-lisp/rtags/flycheck-rtags.el
-/usr/local/share/emacs/site-lisp/rtags/flycheck-rtags.elc
+%{_bindir}/rdm
+%{_bindir}/rc
+%{_bindir}/rp
+%{_bindir}/gcc-rtags-wrapper.sh
+%{_mandir}/man7/rc.7*
+%{_mandir}/man7/rdm.7*
+%{_datadir}/bash-completion/completions/rtags
+%{_datadir}/bash-completion/completions/rc
+%{_datadir}/bash-completion/completions/rdm
+%{_datadir}/emacs/site-lisp/rtags/rtags.el
+%{_datadir}/emacs/site-lisp/rtags/rtags.elc
+%{_datadir}/emacs/site-lisp/rtags/ac-rtags.el
+%{_datadir}/emacs/site-lisp/rtags/ac-rtags.elc
+%{_datadir}/emacs/site-lisp/rtags/helm-rtags.el
+%{_datadir}/emacs/site-lisp/rtags/helm-rtags.elc
+%{_datadir}/emacs/site-lisp/rtags/ivy-rtags.el
+%{_datadir}/emacs/site-lisp/rtags/ivy-rtags.elc
+%{_datadir}/emacs/site-lisp/rtags/company-rtags.el
+%{_datadir}/emacs/site-lisp/rtags/company-rtags.elc
+%{_datadir}/emacs/site-lisp/rtags/flycheck-rtags.el
+%{_datadir}/emacs/site-lisp/rtags/flycheck-rtags.elc
