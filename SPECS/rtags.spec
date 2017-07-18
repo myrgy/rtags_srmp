@@ -54,5 +54,5 @@ popd
 %{_datadir}/*
 
 %changelog
-* Update to 2.11
+* Tue Jul 18 2017 Alexander Dalshov myrgy@rambler.ru Update to 2.11
 - Initial RPM release
