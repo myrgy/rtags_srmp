@@ -4,7 +4,7 @@
 
 Summary: RTags C/C++ index/refactoring tool
 Name: rtags
-Version: 2.10
+Version: 2.11
 Release: 1
 License: GPLv3
 URL:     https://github.com/Andersbakken/rtags
@@ -49,24 +49,10 @@ popd
 
 %files
 %defattr(-,root,root)
-%{_bindir}/rdm
-%{_bindir}/rc
-%{_bindir}/rp
-%{_bindir}/gcc-rtags-wrapper.sh
-%{_mandir}/man7/rc.7*
-%{_mandir}/man7/rdm.7*
-%{_datadir}/bash-completion/completions/rtags
-%{_datadir}/bash-completion/completions/rc
-%{_datadir}/bash-completion/completions/rdm
-%{_datadir}/emacs/site-lisp/rtags/rtags.el
-%{_datadir}/emacs/site-lisp/rtags/rtags.elc
-%{_datadir}/emacs/site-lisp/rtags/ac-rtags.el
-%{_datadir}/emacs/site-lisp/rtags/ac-rtags.elc
-%{_datadir}/emacs/site-lisp/rtags/helm-rtags.el
-%{_datadir}/emacs/site-lisp/rtags/helm-rtags.elc
-%{_datadir}/emacs/site-lisp/rtags/ivy-rtags.el
-%{_datadir}/emacs/site-lisp/rtags/ivy-rtags.elc
-%{_datadir}/emacs/site-lisp/rtags/company-rtags.el
-%{_datadir}/emacs/site-lisp/rtags/company-rtags.elc
-%{_datadir}/emacs/site-lisp/rtags/flycheck-rtags.el
-%{_datadir}/emacs/site-lisp/rtags/flycheck-rtags.elc
+%{_bindir}/*
+%{_mandir}/man7/*
+%{_datadir}/*
+
+%changelog
+* Update to 2.11
+- Initial RPM release
