@@ -4,8 +4,8 @@
 
 Summary: RTags C/C++ index/refactoring tool
 Name: rtags
-Version: 2.11
-Release: 2
+Version: 2.12
+Release: 1
 License: GPLv3
 URL:     https://github.com/Andersbakken/rtags
 Group:   Programming
